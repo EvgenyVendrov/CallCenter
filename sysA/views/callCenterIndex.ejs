@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Call Center</title>
+    <link rel="stylesheet" href="./css/callCenterStyle.css">
+    <script src="https://kit.fontawesome.com/bdca2c6d1b.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@1&family=Overpass:ital,wght@1,700&family=Source+Code+Pro&family=Ubuntu:ital,wght@1,500&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script defer src="./js/callCenterApp.js" charset="utf-8"></script>
+    <script defer src="./js/socketWork.js" charset="utf-8"></script>
+</head>
+
+<body onload="initSocket()">
+
+    <div id="outside-modal" class="hidden centered">
+        <div id="inside-modal" class="box centered column">
+            <h3 id="modal-text" class="centered">There Are No Waiting Calls To Answer !</h3>
+            <button onclick="closeModalBtnClicked()" id="cancle-modal" type="button"
+                class="btn btn-outline-success btn-sm myanswer-calls "><i class="fas fa-phone"></i> CANCEL</button>
+        </div>
+    </div>
+    <section id="first-section">
+        <div class="rutinediv">
+            <h2 class="situation-headline">Current Situation</h2>
+            <select class="custom-select custom-select-lg-3 customsel" id="kind-of-call"
+                onchange="reportSituationChanged()">
+                <% if (currSituation === 0){%>
+                <option class="emer" value="Emergency" selected>Emergency</option>
+                <option class="emerut" value="Emergency - Calm">Emergency - Calm</option>
+                <option class="rut" value="Calm">Calm</option>
+                <%}%>
+                <% if (currSituation === 1){%>
+                <option class="emer" value="Emergency">Emergency</option>
+                <option class="emerut" value="Emergency - Calm" selected>Emergency - Calm</option>
+                <option class="rut" value="Calm">Calm</option>
+                <%}%>
+                <% if (currSituation === 2){%>
+                <option class="emer" value="Emergency">Emergency</option>
+                <option class="emerut" value="Emergency - Calm">Emergency - Calm</option>
+                <option class="rut" value="Calm" selected>Calm</option>
+                <%}%>
+            </select>
+        </div>
+
+        <div class="costume-row">
+            <h2 class="watingcalls-headline">Total Wating Calls</h2>
+            <input class="numberofcalls-box" type="number" id="total" min="0" max="200" value=<%=numOfCallers%>>
+                <button type="button" class="btn btn-outline-secondary pos_setcalls_btn"
+                    onclick="sendMessage(total.value)">
+                    Set Calls</button>
+                <h5>user connected: <h5 id="num-of-users"><%=numOfUsers%></h5>
+                </h5>
+        </div>
+    </section>
+
+    <section id="table-section">
+        <div class="table-div">
+            <button id="answercallbtn" type="button" class="btn btn-outline-success btn-sm myanswer-calls "><i
+                    class="fas fa-phone"></i> Answer Call </button>
+            <table id="openConversations" class="table  mytable ">
+                <thead>
+                    <tr>
+                        <th scope="col">Start Time</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Topic</th>
+                        <th scope="col">Language</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">End</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="bottom-section">
+        <footer id="footer">
+            <p class="myfooter-p">© Amitai, Evgeny 2020 BigData project</p>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+</body>
+
+</html>

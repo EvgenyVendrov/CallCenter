@@ -1,0 +1,31 @@
+const express = require("express");
+const app = express();
+const path = require("path");
+const router = require("./routes/routes");
+const controllers = require("./controllers/controllers");
+const kafkaConnector = require("./utils/kafkaConnector");
+const mongodb = require("./utils/mongodb");
+const setListenersOnKafka = require("./models/kafkaHandler");
+const CallDataCollection = require("./models/CallDataCollection");
+
+app.set("view engine", "ejs");
+app.set("views", "views");
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use(router);
+
+app.use(controllers.redirectNonExistingUrl);
+
+console.sysc = (val) => console.log("SYS_C:", val);
+kafkaConnector.connectToKafka()
+    .then(() => {
+        mongodb.connectToMongo(() => {
+            setListenersOnKafka();
+            CallDataCollection.init();
+            const server = app.listen(5000);
+            console.sysc("connected to server");
+        });
+    })
+    .catch(err => { throw err; });
+

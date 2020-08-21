@@ -1,0 +1,147 @@
+
+/* tags styles */
+html{
+  height: 100%;
+}
+
+body{
+  text-align: center;
+  min-height: 100%;
+}
+
+hr{
+  border: 0 !important;
+    height: 1px !important;
+    background: #333 !important;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc) !important;
+    /* width: 100% !important; */
+    margin: 0 !important;
+}
+
+/* firstSection styles*/
+#firstSection{
+  background-color: #ecfbfc;
+  font-family: 'Montserrat', sans-serif;
+  padding-bottom: 1.5rem;
+
+}
+
+.my-menu-toggler{
+  text-align: right;
+}
+
+.my-brand{
+  color: #565d47 !important;
+}
+
+/* wating time and number of calls graph styles */
+#watingSection{
+  background-color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  margin: 100px 100px 100px 100px;
+  text-align: center;
+}
+
+/* graph element */
+#chart {
+    height: 400px;
+    width: 230px;
+    margin: auto;
+}
+
+#timeWatingChart{
+  height: 400px;
+  width: 210px;
+  margin: auto;
+}
+
+.my-h3{
+  color: #565d47;
+  margin-bottom: 3rem;
+  padding-top: 1rem;
+}
+
+.graphFontAusomeIcon{
+  margin-right: 10px;
+  color: green;
+}
+
+.my-card{
+  text-align: center !important;
+}
+
+/* calls info Section */
+#callsInfoSection{
+  background-color: #ecfbfc;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  padding-bottom: 50px;
+}
+
+/* language distribution section styles */
+#langDistribution{
+  text-align: center;
+  margin: 100px;
+}
+
+#languageChart{
+  height: 440px;
+  text-align: center;
+}
+
+/* topic Distribution section */
+#topicDistribution{
+  text-align: center;
+  margin: 0;
+  padding-bottom: 50px;
+  background-color: #ecfbfc;
+}
+
+#topicChart{
+  height: 440px;
+  text-align: center;
+}
+
+/* aregression Section, number of calls every 5 minuts*/
+#aregrationSection{
+  margin: 100px;
+  text-align: center;
+}
+
+/* time wating every 5 minuts section styles */
+#timeAgregationSection{
+  margin: 100px 100px 0 100px;
+  text-align: center;
+  background-color: #ecfbfc;
+}
+/* vertial scroling settings for the tables */
+.my-custom-scrollbar {
+position: relative;
+height: 300px;
+overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+display: block;
+}
+
+.my-agrationTable{
+  margin: 6rem auto auto auto;
+}
+
+/* footerSection styles */
+
+#footerSection{
+  color: #565d47;
+  background-color: #ecfbfc;
+  text-align: center;
+  margin-top: 6rem;
+  margin-bottom: 0;
+  padding: 0 3rem 2rem 2rem;
+  bottom: 0;
+  /* width: 100%; */
+}
+
+#footer{
+  padding-top: 3rem;
+}

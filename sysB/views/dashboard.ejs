@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script src="./js/app.js"></script>
+</head>
+
+<body onload="initSocket()">
+    <h1>CURRENT NUMBER OF CALLERS:</h1>
+    <h1 id="num-of-callers"><%=numOfCallers%></h1>
+    <h1>LAST 10 MINS CALL DURATION:</h1>
+    <h1 id="last-10-avg"><%=avg10mins%></h1>
+
+
+    <%for (const city in groupedByCity){%>
+    <h1><%=city%>:<%=groupedByCity[city]%></h1>
+    <%}%>
+    <%for (const topic in groupedByTopic){%>
+    <h1><%=topic%>:<%=groupedByTopic[topic]%></h1>
+    <%}%>
+    <%for (const type in groupedByType){%>
+    <h1><%=type%>:<%=groupedByType[type]%></h1>
+    <%}%>
+    <%for (const lang in groupedByLang){%>
+    <h1><%=lang%>:<%=groupedByLang[lang]%></h1>
+    <%}%>
+    <h1>FIVE MIN SEGMENTS:</h1>
+    <%for(fiveMin of wholeDaySegment){%>
+    <p>HOUR:<%=fiveMin.getHour()%></p>
+    <!-- <p><%=fiveMin%></p> -->
+    <p>callNumber:<%=fiveMin.getCounter()%></p>
+    <!-- <p><%=wholeDaySegment[fiveMin]%></p> -->
+    <%}%>
+
+    <h1>NEW UPDATED SHIT:</h1>
+</body>
+
+</html>
