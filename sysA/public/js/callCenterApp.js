@@ -4,7 +4,7 @@ $("#answercallbtn").click(startConv);
 function startConv() {
     const numOfCalls = parseInt(document.getElementById("total").value);
     if (numOfCalls === 0) {
-        popUpModal();
+        popUpModal("There Are No Waiting Calls To Answer!");
         return;
     }
     var tr = document.getElementById("openConversations").insertRow();
@@ -53,7 +53,11 @@ function reportEndCall(row) {
     rawCallData.topic = row.cells[2].getElementsByTagName("select")[0].value;
     rawCallData.language = row.cells[3].getElementsByTagName("select")[0].value;
     rawCallData.gender = row.cells[4].getElementsByTagName("select")[0].value;
-    rawCallData.age = (row.cells[5].getElementsByTagName("input")[0].value || 18);
+    rawCallData.age = (row.cells[5].getElementsByTagName("input")[0].value);
+    if (!rawCallData.age) {
+        popUpModal("Can Not End A Call Without The Age Listed !");
+        return;
+    }
     rawCallData.typeOfCall = situation.value;
     rawCallData.timeRecived = timeRecived;
     const timeOfEnding = getTime().split(",")[1];
@@ -85,9 +89,10 @@ function getTime() {
 }
 const outsideModal = document.getElementById("outside-modal");
 
-function popUpModal() {
+function popUpModal(textToWrite) {
     const outsideModal = document.getElementById("outside-modal");
-    // const insideModal = document.getElementById("inside-modal");
+    const modalText = document.getElementById("modal-text");
+    modalText.innerHTML = textToWrite;
     outsideModal.classList.toggle("hidden");
 }
 
