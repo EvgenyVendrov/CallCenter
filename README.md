@@ -7,5 +7,6 @@ instructions to use:
 5. npm start in external folder to run them all
 6. sysA is at "localhost:3000",sysB is at "localhost:4000",sysC is at "localhost:5000"
 7. to run sysB you have to run Redis version 6.0.6 on docker (http://download.redis.io/releases/redis-6.0.6.tar.gz)
+8. redis has to be configured with password "Neska1994" (config set requiepass Neska1994 - in redis cli)
 8. sysC uses mongoDB on cloud Atlas
 9. kafka cloud now used is aiven.io
