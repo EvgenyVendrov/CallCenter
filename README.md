@@ -3,8 +3,8 @@ instructions to use:
 1. download to your computer
 2. "npm install" in entry folder
 3. "npm install" in all "sys..." folders
-4. npm "run sysA"\"sysB"\"sysC" will run chosen system only
-5. npm start in entry folder will run them all - togather
+4. "npm run sysA" OR "... sysB" OR "... sysC" will run chosen system only
+5. "npm start" in entry folder will run them all - togather
 6. sysA is at "localhost:3000",sysB is at "localhost:4000" and sysC is at "localhost:5000"
 7. to run sysB you have to run Redis version 6.0.6 on docker (http://download.redis.io/releases/redis-6.0.6.tar.gz) =>
 the command to run redis on docker is "docker run --name <the name of your container> -p 7001:6379 -d redis"
