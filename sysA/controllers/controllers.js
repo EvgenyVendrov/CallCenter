@@ -54,7 +54,6 @@ module.exports = {
     },
 
     redirectNonExistingUrl: (req, res, next) => {
-        console.sysa("got to redirect");
         res.redirect(301, "/sender");
     }
 
