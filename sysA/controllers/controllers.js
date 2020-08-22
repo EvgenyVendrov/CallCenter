@@ -45,7 +45,6 @@ module.exports = {
     },
 
     getCallCenter: (req, res, next) => {
-        console.sysa("got to render");
         res.render("callCenterIndex", {
             numOfUsers: dataSavedForClients.getCurrNumOfClients(),
             currSituation: dataSavedForClients.getCurrSituation(),

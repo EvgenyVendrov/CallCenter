@@ -1,6 +1,5 @@
 const CallDataCollection = require("../models/CallDataCollection");
 const NummberOfCallersCollection = require("../models/NumOfCallersCollection");
-const setListenersOnKafka = require("../models/kafkaHandler");
 const socketHandler = require("../utils/socketHandler");
 const WholeDay = require("../models/WholeDay");
 
@@ -23,29 +22,32 @@ module.exports = {
             })
             .catch((err) => { throw Error(err); });
     },
+
     getDashBoard: (req, res, next) => {
         const configObjForUi = _createConfigObjForUi();
         configObjForUi.numOfCallers = parseInt(NummberOfCallersCollection.getUpdatedNumberOfCallers());
         res.render("dashboard", configObjForUi);
     },
+
     numOfCallersChanged: (newNum) => {
         const socketIo = socketHandler.getSocket();
         socketIo.emit("updNumOfCallers", newNum);
         console.sysb("socket event of new num of callers emitted to client");
     },
+
     newCallEnded: (nCallData) => {
         const socketIo = socketHandler.getSocket();
         WholeDay.recordCallInFiveMinuteSegment(nCallData);
         socketIo.emit("newCallEnded");
     },
+
     redirect: (req, res, next) => {
         res.redirect("dashboard");
     },
 
-
 };
-const _createConfigObjForUi = () => {
 
+const _createConfigObjForUi = () => {
     const cityCount = CallDataCollection.groupByCity();
     const topicCount = CallDataCollection.groupByTopic();
     const typeCount = CallDataCollection.groupByType();

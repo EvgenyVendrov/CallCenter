@@ -11,7 +11,6 @@ const kafkaConnector = require("./utils/kafkaConnector.js");
 
 const socketHandler = require("./utils/socketHandler.js");
 
-const controllersInit = require("./controllers/controllers").init;
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -26,7 +25,7 @@ console.sysa = (...val) => console.log("SYS_A:", Array.from(val).join(" "));
 
 kafkaConnector.connectToKafka()
     .then(() => {
-        controllersInit();
+        controllers.init();
         console.sysa("connected to kafka");
         const server = app.listen(3000);
         console.sysa("connected to server");
