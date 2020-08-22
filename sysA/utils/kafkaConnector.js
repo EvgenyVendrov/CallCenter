@@ -4,9 +4,9 @@ const path = require("path");
 // const _userName = "2yjknas1";
 // const _password = "E3y_RbJJE1CW6VscK25r-ql94b0KHOQr";
 const _brokerList = "kafka-27a358e6-evgenyv94-e1a1.aivencloud.com:17410";
-const pathForAccessKey = path.join(__dirname, "service.key");
-const pathForSSLCert = path.join(__dirname, "service.cert");
-const pathForCA = path.join(__dirname, "ca.pem");
+const pathForAccessKey = path.join(__dirname, "kafka-SSL-files", "service.key");
+const pathForSSLCert = path.join(__dirname, "kafka-SSL-files", "service.cert");
+const pathForCA = path.join(__dirname, "kafka-SSL-files", "ca.pem");
 const _fastTopicName = "fast_dashboard";
 const _slowTopicName = "slow_ML";
 

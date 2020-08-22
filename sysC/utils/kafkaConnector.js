@@ -2,9 +2,9 @@ const path = require("path");
 const Kafka = require("node-rdkafka");
 
 const _brokerList = "kafka-27a358e6-evgenyv94-e1a1.aivencloud.com:17410";
-const pathForAccessKey = path.join(__dirname, "service.key");
-const pathForSSLCert = path.join(__dirname, "service.cert");
-const pathForCA = path.join(__dirname, "ca.pem");
+const pathForAccessKey = path.join(__dirname, "kafka-SSL-files", "service.key");
+const pathForSSLCert = path.join(__dirname, "kafka-SSL-files", "service.cert");
+const pathForCA = path.join(__dirname, "kafka-SSL-files", "ca.pem");
 const _fastTopicName = "slow_ML";
 
 
