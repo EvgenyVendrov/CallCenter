@@ -1,49 +1,58 @@
+const path = require("path");
 const Kafka = require("node-rdkafka");
 
-const _userName = "0vykth32";
-const topic = `${_userName}-slow_lane`;
+const _brokerList = "kafka-27a358e6-evgenyv94-e1a1.aivencloud.com:17410";
+const pathForAccessKey = path.join(__dirname, "service.key");
+const pathForSSLCert = path.join(__dirname, "service.cert");
+const pathForCA = path.join(__dirname, "ca.pem");
+const _fastTopicName = "slow_ML";
 
 
 let _consumer;
-
-const connectToKafka = () => {
-
-
-    const kafkaConf = {
-        "group.id": "cloudkarafka-example",
-        "metadata.broker.list": "rocket-01.srvs.cloudkafka.com:9094,rocket-02.srvs.cloudkafka.com:9094,rocket-03.srvs.cloudkafka.com:9094".split(","),
-        "socket.keepalive.enable": true,
-        "security.protocol": "SASL_SSL",
-        "sasl.mechanisms": "SCRAM-SHA-256",
-        "sasl.username": _userName,
-        "sasl.password": "7QDdk9nRFBSgdkl2zKxlPKycOn9UiZdK",
-        "debug": "generic,broker,security"
-    };
-
-    _consumer = new Kafka.KafkaConsumer(kafkaConf);
-
-    setConsumeCallBacks();
-
-    return new Promise((result, reject) => {
-        _consumer.connect({}, (err => {
-            if (err) { reject(err); }
-            else {
-                result();
-            }
-        }));
-    });
+module.exports = {
+    connectToKafka: () => {
 
 
+        const kafkaConf = {
+            "metadata.broker.list": _brokerList,
+            "group.id": "dashboard",
+            "security.protocol": "ssl",
+            "ssl.key.location": pathForAccessKey,
+            "ssl.certificate.location": pathForSSLCert,
+            "ssl.ca.location": pathForCA,
+            "debug": "generic,broker,security"
+        };
+
+        _consumer = new Kafka.KafkaConsumer(kafkaConf);
+
+        _setConsumeCallBacks();
+
+        return new Promise((result, reject) => {
+            _consumer.connect({}, (err => {
+                if (err) { reject(err); }
+                else {
+                    result();
+                }
+            }));
+        });
+    },
+
+    getConsumerAPI: () => {
+        if (_consumer) {
+            return _consumer;
+        }
+        throw "consumer not connected yet!";
+    }
 };
 
-const setConsumeCallBacks = () => {
+const _setConsumeCallBacks = () => {
 
     _consumer.on("error", function (err) {
         throw new error(err);
     });
 
     _consumer.on("ready", () => {
-        _consumer.subscribe([topic]);
+        _consumer.subscribe([_fastTopicName]);
         _consumer.consume();
         console.sysc("kafka is connected");
     });
@@ -53,19 +62,7 @@ const setConsumeCallBacks = () => {
     });
 };
 
-const getConsumerAPI = () => {
-    if (_consumer) {
-        return _consumer;
-    }
-    throw "consumer not connected yet!";
-};
-
-const getUserName = () => {
-    return _userName;
-};
 
 
-// exports.getUserName = getUserName;
-exports.connectToKafka = connectToKafka;
-exports.getConsumerAPI = getConsumerAPI;
+
 
