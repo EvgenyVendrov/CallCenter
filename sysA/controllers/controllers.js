@@ -45,6 +45,7 @@ module.exports = {
     },
 
     getCallCenter: (req, res, next) => {
+        console.sysa("got to render");
         res.render("callCenterIndex", {
             numOfUsers: dataSavedForClients.getCurrNumOfClients(),
             currSituation: dataSavedForClients.getCurrSituation(),
@@ -53,7 +54,8 @@ module.exports = {
     },
 
     redirectNonExistingUrl: (req, res, next) => {
-        res.redirect("/sender");
+        console.sysa("got to redirect");
+        res.redirect(301, "/sender");
     }
 
 

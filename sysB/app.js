@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(router);
 
-app.use(controllers.redirect);
+app.use("/", controllers.redirect);
 
 console.sysb = (...val) => console.log("SYS_B:", Array.from(val).join(" "));
 

@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(router);
 
-app.use(controllers.redirectNonExistingUrl);
+app.use("/", controllers.redirectNonExistingUrl);
 
 console.sysa = (...val) => console.log("SYS_A:", Array.from(val).join(" "));
 
