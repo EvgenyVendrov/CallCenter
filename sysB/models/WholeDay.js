@@ -2,7 +2,7 @@ const FiveMinutes = require("./FiveMinutes");
 
 let _collection;
 
-class WholeDay {
+module.exports = class WholeDay {
 
     static init() {
         _collection = [];
@@ -38,7 +38,6 @@ class WholeDay {
         const indexToStart = (hourStart * 12) + (Math.floor(minStart / 5));
         const indexToEnd = (hourEnd * 12) + (Math.floor(minEnd / 5));
 
-        // console.log("starting index: ", indexToStart, " ending index: ", indexToEnd);
 
         for (let runningIndex = indexToStart; runningIndex <= indexToEnd; runningIndex++) {
             _collection[runningIndex].setCounter(_collection[runningIndex].getCounter() + 1);
@@ -48,7 +47,6 @@ class WholeDay {
 
     static getDataFromCallDataCollection(callDataCollection) {
         for (const callData of callDataCollection) {
-            // console.log(callData);
             WholeDay.recordCallInFiveMinuteSegment(callData);
         }
     }
@@ -56,6 +54,5 @@ class WholeDay {
     static getCollection() {
         return _collection;
     }
-}
+};
 
-module.exports = WholeDay;

@@ -7,10 +7,11 @@ const NummberOfCallersCollection = require("../models/NumOfCallersCollection");
 
 
 
-const setListenersOnKafka = () => {
+
+module.exports = setListenersOnKafka = () => {
     const consumerApi = kafkaConnector.getConsumerAPI();
     consumerApi.on("data", (m) => {
-        console.sysa("got data from kafka");
+        console.sysb("got data from kafka");
         if (m.value.toString().includes("type of call")) {
             const nCallData = new CallData(m.value.toString());
             nCallData.updateRedis();
@@ -29,8 +30,3 @@ const setListenersOnKafka = () => {
 };
 
 
-module.exports = setListenersOnKafka;
-// kafkaHandler.getConsumerAPI().on("data",
-//     (m) => {
-//         console.log("new data recived from kafka=>", m.value.toString());
-//     });

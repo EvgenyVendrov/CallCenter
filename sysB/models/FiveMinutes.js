@@ -1,4 +1,5 @@
-class FiveMinutes {
+module.exports = class FiveMinutes {
+
     constructor(hour) {
         this.hour = hour;
         this.callCounter = 0;
@@ -28,6 +29,5 @@ class FiveMinutes {
         this.avgWaitingTime = sum / this.callCounter;
         return this.avgWaitingTime;
     }
-}
+};
 
-module.exports = FiveMinutes;

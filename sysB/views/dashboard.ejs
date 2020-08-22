@@ -1,39 +1,302 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
 
 <head>
+    <script>
+
+        numOfCallers = [
+            {
+                title: "wating calls",
+                numOfCallers:<%=numOfCallers%>
+                }];
+
+        avgWaiting = [
+            {
+                title: "wating time",
+                avg:<%=avg10mins%>
+                }];
+
+        langSource = [];
+    
+            <%for (let lang in groupedByLang) {%>
+            langSource.push({
+                language: "<%=lang%>",
+                amount: <%=groupedByLang[lang] %>
+                });
+                <%}%>
+
+            topicSource =[];
+    
+             <%for (let topic in groupedByTopic) {%>
+            topicSource.push({
+                topic: "<%=topic%>",
+                amount: <%=groupedByTopic[topic] %>
+                });
+                <%}%>
+
+            numOfCalls =[];
+    
+               <%for (let fiveMin of wholeDaySegment) {%>
+            numOfCalls.push({
+                hour: "<%=fiveMin.getHour() %>",
+                calls: <%=fiveMin.getCounter() %>
+                });
+                <%}%>
+
+            timeWatingCalls =[];
+    
+               <%for (let fiveMin of wholeDaySegment) {%>
+            timeWatingCalls.push({
+                hour: "<%=fiveMin.getHour() %>",
+                avgTime: <%=fiveMin.getAvgWaitingTime() %>
+                });
+                <%}%>
+
+
+                // <%for (const lang in groupedByLang) {%>
+                // <h1><%=lang%>:<%=groupedByLang[lang]%></h1>
+                // <%}%>
+            // langSource = [<%=groupedByLang %>];
+            // topicSource = [<%=groupedByTopic %>];
+            // numOfCalls = [<%=wholeDaySegment %>];
+    </script>
+    <meta charset="utf-8">
+    <title>view</title>
+    <!-- css implement -->
+    <link rel="stylesheet" href="style/style.css">
+    <!-- google fonts implement -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@1&family=Overpass:ital,wght@1,700&family=Source+Code+Pro&family=Ubuntu:ital,wght@1,500&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <!-- jquey implement -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- fontawesome cdn -->
+    <script src="https://kit.fontawesome.com/bdca2c6d1b.js" crossorigin="anonymous"></script>
+    <!-- bottstrap implement -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <!-- devexpress implement -->
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/20.1.6/css/dx.common.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/20.1.6/css/dx.light.css" />
+    <script src="https://cdn3.devexpress.com/jslib/20.1.6/js/dx.all.js"></script>
+    <script src="/js/readData.js"></script>
+    <script src="/js/socketWork.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
-    <script src="./js/app.js"></script>
 </head>
 
 <body onload="initSocket()">
-    <h1>CURRENT NUMBER OF CALLERS:</h1>
-    <h1 id="num-of-callers"><%=numOfCallers%></h1>
-    <h1>LAST 10 MINS CALL DURATION:</h1>
-    <h1 id="last-10-avg"><%=avg10mins%></h1>
+    <!-- navbar section -->
+    <section id="firstSection">
+        <nav class="navbar  navbar-light">
+            <a class="navbar-brand my-brand" href="">data dashboared</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse my-menu-toggler" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#watingSection">wating</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#callsInfoSection">calls</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#aregrationSection">agrgation amount</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#timeAgregationSection">agrgation wating</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#langDistribution">language distribution</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#topicDistribution">topic distribution</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </section>
+    <hr>
 
 
-    <%for (const city in groupedByCity){%>
-    <h1><%=city%>:<%=groupedByCity[city]%></h1>
-    <%}%>
-    <%for (const topic in groupedByTopic){%>
-    <h1><%=topic%>:<%=groupedByTopic[topic]%></h1>
-    <%}%>
-    <%for (const type in groupedByType){%>
-    <h1><%=type%>:<%=groupedByType[type]%></h1>
-    <%}%>
-    <%for (const lang in groupedByLang){%>
-    <h1><%=lang%>:<%=groupedByLang[lang]%></h1>
-    <%}%>
-    <h1>FIVE MIN SEGMENTS:</h1>
-    <%for(fiveMin of wholeDaySegment){%>
-    <p>HOUR:<%=fiveMin.getHour()%></p>
-    <!-- <p><%=fiveMin%></p> -->
-    <p>callNumber:<%=fiveMin.getCounter()%></p>
-    <!-- <p><%=wholeDaySegment[fiveMin]%></p> -->
-    <%}%>
+    <!-- wating calls section -->
+    <section id="watingSection">
+        <h3 class="my-h3">Number Of Waiting Calls In REAL TIME & Average Call Time Last 10 Minutes</h3>
+        <div class="card-deck">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-phone graphFontAusomeIcon"></i>Number Of Waiting Calls In REAL TIME
+                </div>
+                <div class="card-body">
+                    <div id="chart"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <i class="far fa-clock graphFontAusomeIcon"></i>Average Call Time Last 10 Minutes</h4>
+                </div>
+                <div class="card-body">
+                    <div id="timeWatingChart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
 
-    <h1>NEW UPDATED SHIT:</h1>
+
+    <!-- number of calls acording to topic and city table section -->
+    <section id="callsInfoSection">
+        <h3 class="my-h3">Number Of Calls Split Based On Call Topic & Caller City</h3>
+        <table class="table table-sm table-hover table-bordered">
+            <thead class="thead-ligh">
+                <tr>
+                    <th scope="col">City\Topic</th>
+                    <th scope="col">Drugs</th>
+                    <th scope="col">Food</th>
+                    <th scope="col">Water</th>
+                    <th scope="col">Shelter</th>
+                    <th scope="col">Information</th>
+                    <th scope="col">Evacuation</th>
+                    <th scope="col">total calls</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Jerusalem</th>
+                </tr>
+                <tr>
+                    <th scope="row">Naaria</th>
+                </tr>
+                <tr>
+                    <th scope="row">Haifa</th>
+                </tr>
+                <tr>
+                    <th scope="row">Tel Aviv</th>
+                </tr>
+                <tr>
+                    <th scope="row">Ashdod</th>
+                </tr>
+                <tr>
+                    <th scope="row">Ashkelon</th>
+                </tr>
+                <tr>
+                    <th scope="row">Beer Sheva</th>
+                </tr>
+                <tr>
+                    <th scope="row">total</th>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <hr>
+
+    <!-- language distribution section -->
+    <section id="langDistribution">
+        <h3 class="my-h3">Number Of Calls Split Based On Caller Language</h3>
+        <div class="demo-container">
+            <div id="languageChart"></div>
+        </div>
+    </section>
+    <hr>
+
+    <!-- topic distribution section-->
+    <section id="topicDistribution">
+        <h3 class="my-h3">Number Of Calls Split Based On Topics</h3>
+        <div class="demo-container">
+            <div id="topicChart">
+            </div>
+        </div>
+    </section>
+    <hr>
+
+    <!-- number of calls 5 minuts aregration section -->
+    <section id="aregrationSection">
+        <h3 class="my-h3">Number Of Active Calls Split To 5 Minutes Segments</h3>
+        <div class="demo-container">
+            <div id="fiveMinAmountChart">
+            </div>
+        </div>
+
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-sm my-agrationTable">
+                <thead>
+                    <tr>
+                        <th scope="col">hour\minuts</th>
+                        <th scope="col">00</th>
+                        <th scope="col">05</th>
+                        <th scope="col">10</th>
+                        <th scope="col">15</th>
+                        <th scope="col">20</th>
+                        <th scope="col">25</th>
+                        <th scope="col">30</th>
+                        <th scope="col">35</th>
+                        <th scope="col">40</th>
+                        <th scope="col">45</th>
+                        <th scope="col">50</th>
+                        <th scope="col">55</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <hr>
+
+    <!-- wating time 5 minuts aregration section -->
+    <section id="timeAgregationSection">
+        <h3 class="my-h3">Average Waiting Time Of Active Calls Split To 5 Minutes Segments</h3>
+        <div class="demo-container">
+            <div id="fiveMinWatingChart">
+            </div>
+        </div>
+
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-sm my-agrationTable">
+                <thead>
+                    <tr>
+                        <th scope="col">hour\minuts</th>
+                        <th scope="col">00</th>
+                        <th scope="col">05</th>
+                        <th scope="col">10</th>
+                        <th scope="col">15</th>
+                        <th scope="col">20</th>
+                        <th scope="col">25</th>
+                        <th scope="col">30</th>
+                        <th scope="col">35</th>
+                        <th scope="col">40</th>
+                        <th scope="col">45</th>
+                        <th scope="col">50</th>
+                        <th scope="col">55</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <hr>
+
+    <!-- footer section -->
+    <section id="footerSection">
+        <hr>
+        <footer id="footer">
+            <p class="myfooter-p">© Amitai, Evgeny 2020 BigData project</p>
+    </section>
+    <!-- systemB.js implement -->
 </body>
 
 </html>

@@ -1,12 +1,12 @@
 module.exports = {
     init: (server) => {
         _socketIo = require("socket.io")(server);
-        console.sysa("socketIO is connected");
+        console.sysb("socketIO is connected");
         return _socketIo;
     },
     configureConnections: () => {
         _socketIo.on("connection", (socket) => {
-            console.sysa("client connected!");
+            console.sysb("client connected!");
             
             // socket.on("")
         });

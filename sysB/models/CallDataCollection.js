@@ -4,7 +4,7 @@ const CallData = require("./CallData");
 let _collection;
 let _redisClient;
 
-class CallDataCollection {
+module.exports = class CallDataCollection {
 
     static init() {
         _collection = [];
@@ -55,59 +55,67 @@ class CallDataCollection {
 
     static isLessThan10Minutes(callDataElem) {
         const date = Date.now();
-        const dateTimeFormat = new Intl.DateTimeFormat("en", { hour: "numeric", minute: "numeric" ,hour12: false});
+        const dateTimeFormat = new Intl.DateTimeFormat("en", { hour: "numeric", minute: "numeric", hour12: false });
         let [{ value: hour }, , { value: minute }] = dateTimeFormat.formatToParts(date);
         hour = parseInt(hour);
         minute = parseInt(minute);
         const [callHour, callMinute] = callDataElem["time recived"].split(":");
-        console.sysa("call hour=>", callHour);
-        console.sysa("call min=>", callMinute);
-        console.sysa("return hour:", hour - callHour);
-        console.losysag("return min:", minute - callMinute);
+        console.sysb("call hour=>", callHour);
+        console.sysb("call min=>", callMinute);
+        console.sysb("return hour:", hour - callHour);
+        console.sysb("return min:", minute - callMinute);
         return ((hour - callHour === 0) && (minute - callMinute <= 10));
 
     }
 
     static groupByCity() {
-        return CallDataCollection.isEmpty() ? [] : _collection.map(elem => elem["caller city"]).reduce((running, callerCity) =>
-            (running[callerCity] ?
-                running[callerCity] = running[callerCity] + 1 : running[callerCity] = 1, running), {});
+        return _groupBy("caller city");
     }
-
     static groupByTopic() {
-        return CallDataCollection.isEmpty() ? [] : _collection.map(elem => elem["call topic"]).reduce((running, callerCity) =>
-            (running[callerCity] ?
-                running[callerCity] = running[callerCity] + 1 : running[callerCity] = 1, running), {});
+        return _groupBy("call topic");
     }
-
     static groupByType() {
-        return CallDataCollection.isEmpty() ? [] : _collection.map(elem => elem["type of call"]).reduce((running, callerCity) =>
-            (running[callerCity] ?
-                running[callerCity] = running[callerCity] + 1 : running[callerCity] = 1, running), {});
+        return _groupBy("type of call");
     }
-
     static groupByLang() {
-        return CallDataCollection.isEmpty() ? [] : _collection.map(elem => elem["caller language"]).reduce((running, callerCity) =>
-            (running[callerCity] ?
-                running[callerCity] = running[callerCity] + 1 : running[callerCity] = 1, running), {});
+        return _groupBy("caller language");
     }
+    // static groupByCity() {
+    //     return CallDataCollection.isEmpty() ? [] : _collection.map(elem => elem["caller city"]).reduce((running, callerCity) =>
+    //         (running[callerCity] ?
+    //             running[callerCity] = running[callerCity] + 1 : running[callerCity] = 1, running), {});
+    // }
 
-    static isEmpty() {
-        return _collection.length === 0 ? true : false;
-    }
+    // static groupByTopic() {
+    //     return CallDataCollection.isEmpty() ? [] : _collection.map(elem => elem["call topic"]).reduce((running, callerCity) =>
+    //         (running[callerCity] ?
+    //             running[callerCity] = running[callerCity] + 1 : running[callerCity] = 1, running), {});
+    // }
+
+    // static groupByType() {
+    //     return CallDataCollection.isEmpty() ? [] : _collection.map(elem => elem["type of call"]).reduce((running, callerCity) =>
+    //         (running[callerCity] ?
+    //             running[callerCity] = running[callerCity] + 1 : running[callerCity] = 1, running), {});
+    // }
+
+    // static groupByLang() {
+    //     return CallDataCollection.isEmpty() ? [] : _collection.map(elem => elem["caller language"]).reduce((running, callerCity) =>
+    //         (running[callerCity] ?
+    //             running[callerCity] = running[callerCity] + 1 : running[callerCity] = 1, running), {});
+    // }
+
 
     static getCollection() {
         return _collection;
     }
-}
+};
 
-//{ "type of call": "Emergency","caller city": "jerusalem","call topic": "Medical","caller language": "hebrew","total call time": 2.491
-// }
+const _groupBy = (valToGroupBy) => {
+    return _isEmpty() ? [] : _collection.map(elem => elem[valToGroupBy]).reduce((running, valToGroupBy) =>
+        (running[valToGroupBy] ?
+            running[valToGroupBy] = running[valToGroupBy] + 1 : running[valToGroupBy] = 1, running), {});
+};
 
-
-
-
-module.exports = CallDataCollection;
-// client.lrange('frameworks', 0, -1, function (err, reply) {
-//     console.log(reply); // ['angularjs', 'backbone']
-// });
+const _isEmpty = () => {
+    return _collection.length === 0 ? true : false;
+};

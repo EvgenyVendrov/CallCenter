@@ -11,37 +11,43 @@ const _fastTopicName = "fast_dashboard";
 
 
 let _consumer;
-
-const connectToKafka = () => {
-
-
-    const kafkaConf = {
-        "metadata.broker.list": _brokerList,
-        "group.id": "dashboard",
-        "security.protocol": "ssl",
-        "ssl.key.location": pathForAccessKey,
-        "ssl.certificate.location": pathForSSLCert,
-        "ssl.ca.location": pathForCA,
-        "debug": "generic,broker,security"
-    };
-
-    _consumer = new Kafka.KafkaConsumer(kafkaConf);
-
-    setConsumeCallBacks();
-
-    return new Promise((result, reject) => {
-        _consumer.connect({}, (err => {
-            if (err) { reject(err); }
-            else {
-                result();
-            }
-        }));
-    });
+module.exports = {
+    connectToKafka: () => {
 
 
+        const kafkaConf = {
+            "metadata.broker.list": _brokerList,
+            "group.id": "dashboard",
+            "security.protocol": "ssl",
+            "ssl.key.location": pathForAccessKey,
+            "ssl.certificate.location": pathForSSLCert,
+            "ssl.ca.location": pathForCA,
+            "debug": "generic,broker,security"
+        };
+
+        _consumer = new Kafka.KafkaConsumer(kafkaConf);
+
+        _setConsumeCallBacks();
+
+        return new Promise((result, reject) => {
+            _consumer.connect({}, (err => {
+                if (err) { reject(err); }
+                else {
+                    result();
+                }
+            }));
+        });
+    },
+
+    getConsumerAPI: () => {
+        if (_consumer) {
+            return _consumer;
+        }
+        throw "consumer not connected yet!";
+    }
 };
 
-const setConsumeCallBacks = () => {
+const _setConsumeCallBacks = () => {
 
     _consumer.on("error", function (err) {
         throw new error(err);
@@ -50,27 +56,13 @@ const setConsumeCallBacks = () => {
     _consumer.on("ready", () => {
         _consumer.subscribe([_fastTopicName]);
         _consumer.consume();
-        console.sysa("kafka is connected");
+        console.sysb("kafka is connected");
     });
 
     _consumer.on("offsetOutOfRange", (m) => {
-        console.sysa("OFFSET ERROR");
+        console.sysb("OFFSET ERROR");
     });
 };
 
-const getConsumerAPI = () => {
-    if (_consumer) {
-        return _consumer;
-    }
-    throw "consumer not connected yet!";
-};
 
-// const getUserName = () => {
-//     return _userName;
-// };
-
-
-// exports.getUserName = getUserName;
-exports.connectToKafka = connectToKafka;
-exports.getConsumerAPI = getConsumerAPI;
 

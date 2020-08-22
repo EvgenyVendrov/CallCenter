@@ -19,12 +19,23 @@ module.exports = class DataSavedOnClients {
     }
 
     changeCallcenterSituation(indexOfNewSituation) {
-        if (_situation.getCurrIndex() !== indexOfNewSituation)
+        if (isNaN(indexOfNewSituation)) {
+            console.sysa("ERR: RECIVED NOT A NUMBER AS A NEW CALLERS NUMBER");
+            return;
+        }
+        if (_situation.getCurrIndex() !== indexOfNewSituation) {
             _situation.changeIndex(indexOfNewSituation);
+        }
     }
 
     numOfCallersChanged(number) {
-        _numOfCallers.changeNumber(number);
+        if (isNaN(number)) {
+            console.sysa("ERR: RECIVED NOT A NUMBER AS A NEW CALLERS NUMBER");
+        }
+        else {
+            _numOfCallers.changeNumber(number);
+        }
+
     }
 
     getCurrNumOfClients() {
@@ -38,6 +49,8 @@ module.exports = class DataSavedOnClients {
     getCurrSituation() {
         return _situation.getCurrIndex();
     }
+
+
 
 };
 

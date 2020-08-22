@@ -4,7 +4,7 @@ const NumOfCallers = require("./NumOfCallers");
 let _collection;
 let _redisClient;
 
-class NumberOfCallers {
+module.exports = class NumberOfCallers {
 
     static init() {
         _collection = [];
@@ -26,7 +26,7 @@ class NumberOfCallers {
                     reject(err);
                 }
                 else {
-                    this.copyFromOutputToCollection(reply);
+                    NumberOfCallers.copyFromOutputToCollection(reply);
                     result();
                 }
             });
@@ -34,22 +34,19 @@ class NumberOfCallers {
     }
 
     static getUpdatedNumberOfCallers() {
-        return NumberOfCallers.isEmpty() ? 0 : _collection.slice(-1)[0].getNumOfCallers();
+        return _isEmpty() ? 0 : _collection.slice(-1)[0].getNumOfCallers();
     }
 
     static addNumOfCallersInstance(numOfCallers) {
         _collection.push(numOfCallers);
     }
 
-    static isEmpty() {
-        return _collection.length === 0 ? true : false;
-    }
-
     static getCollection() {
         return _collection;
     }
-}
+};
 
+const _isEmpty = () => {
+    return _collection.length === 0 ? true : false;
+};
 
-
-module.exports = NumberOfCallers;

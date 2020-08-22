@@ -11,7 +11,7 @@ const kafkaHandler = require("./utils/kafkaConnector.js");
 
 const redisConnector = require("./utils/redisConnector.js");
 
-const redisReseter = require("./utils/redisRester.js");
+const setFlushingOnRedis = require("./utils/redisRester.js");
 
 const kafkaListenersSetter = require("./models/kafkaHandler");
 
@@ -27,16 +27,16 @@ app.use(router);
 
 app.use(controllers.redirect);
 
-console.sysa = (...val) => console.log("SYS_B:", Array.from(val).join(" "));
+console.sysb = (...val) => console.log("SYS_B:", Array.from(val).join(" "));
 
 kafkaHandler.connectToKafka()
     .then(() => {
         redisConnector.connectRedis(() => {
-            redisReseter.setFlush("0 0 * * *");
+            setFlushingOnRedis("0 0 * * *");
             controllers.init();
             kafkaListenersSetter();
             const server = app.listen(4000);
-            console.sysa("connected to server");
+            console.sysb("connected to server");
             socketHandler.init(server);
             socketHandler.configureConnections();
         });

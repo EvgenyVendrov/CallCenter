@@ -16,8 +16,14 @@ module.exports = {
 
     callEnded: (rawCallData) => {
         const callData = new CallData(rawCallData);
-        callData.sendToKafka();
-        console.sysa("sent data to kafka");
+        if (callData) {
+            callData.sendToKafka();
+            console.sysa("sent data to kafka");
+        }
+        else {
+            console.sysa("ERR: RECIVED NOT VALID CALL DATA");
+        }
+
     },
 
     numOfCallersChanged: (nNumOfCallers) => {

@@ -4,15 +4,19 @@ const sendData = require("./kafkaSender.js");
 module.exports = class CallData {
 
     constructor(rawCallData) {
-        this["type of call"] = rawCallData.typeOfCall;//->
-        this["caller city"] = rawCallData.city;//->
-        this["call topic"] = rawCallData.topic;//->
-        this["caller language"] = rawCallData.language;//->
-        this["callers gender"] = rawCallData.gender;
-        this["callers age"] = rawCallData.age;
-        this["total call time"] = rawCallData.totalTime;//->
-        this["time recived"] = rawCallData.timeRecived;
-        this["time ended"] = rawCallData.timeEnded;
+        if (this.isDataNonEmpty(rawCallData)) {
+            this["type of call"] = rawCallData.typeOfCall;
+            this["caller city"] = rawCallData.city;
+            this["call topic"] = rawCallData.topic;
+            this["caller language"] = rawCallData.language;
+            this["callers gender"] = rawCallData.gender;
+            this["callers age"] = rawCallData.age;
+            this["total call time"] = rawCallData.totalTime;
+            this["time recived"] = rawCallData.timeRecived;
+            this["time ended"] = rawCallData.timeEnded;
+        }
+        else return;
+
     }
 
     getDataForFastLane() {
@@ -36,5 +40,9 @@ module.exports = class CallData {
         sendData.sendDataSlowLane(this.getDataForSlowLane(), 0);
     }
 
+    isDataNonEmpty(rawCallData) {
+        return (rawCallData.typeOfCall && rawCallData.city && rawCallData.topic && rawCallData.language && rawCallData.gender && rawCallData.age
+            && rawCallData.totalTime && rawCallData.timeRecived && rawCallData.timeEnded);
+    }
 };
 

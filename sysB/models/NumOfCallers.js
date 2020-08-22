@@ -1,7 +1,6 @@
 const sendData = require("../utils/redisConnector");
 
-class NumOfCallers {
-    //{"timeOfChange":"14-45","numberOfCallers":4}
+module.exports = class NumOfCallers {
     constructor(inputFromRedis) {
         const inputFromRedisAsObj = JSON.parse(inputFromRedis);
         for (const prop in inputFromRedisAsObj) {
@@ -15,7 +14,7 @@ class NumOfCallers {
                 throw new Error(err);
             }
             else {
-                console.sysa("new data sent to Redis");
+                console.sysb("new data sent to Redis");
             }
         });
     }
@@ -29,6 +28,5 @@ class NumOfCallers {
     }
 
 
-}
+};
 
-module.exports = NumOfCallers;
