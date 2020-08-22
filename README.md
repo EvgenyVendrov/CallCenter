@@ -12,5 +12,5 @@ the command to run redis on docker is "docker run --name <the name of your conta
 9. sysC uses mongoDB on cloud Atlas => https://cloud.mongodb.com/
 10. kafka cloud now used is aiven.io => https://aiven.io
 
-*use my user in all these cloud platfrorms - emial:evgenyv94@gmail.com
-pass - Neska1994
+*use my user in all these cloud platfrorms - emial: evgenyv94@gmail.com
+pass: Neska1994
