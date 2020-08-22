@@ -27,7 +27,7 @@ app.use(router);
 
 app.use(controllers.redirect);
 
-console.sysa = (...val) => console.log("SYS_B:", val);
+console.sysa = (...val) => console.log("SYS_B:", Array.from(val).join(" "));
 
 kafkaHandler.connectToKafka()
     .then(() => {

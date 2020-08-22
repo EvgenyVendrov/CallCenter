@@ -22,7 +22,7 @@ app.use(router);
 
 app.use(controllers.redirectNonExistingUrl);
 
-console.sysa = (...val) => console.log("SYS_A:", val);
+console.sysa = (...val) => console.log("SYS_A:", Array.from(val).join(" "));
 
 kafkaConnector.connectToKafka()
     .then(() => {

@@ -17,7 +17,8 @@ app.use(router);
 
 app.use(controllers.redirectNonExistingUrl);
 
-console.sysc = (val) => console.log("SYS_C:", val);
+console.sysc = (...val) => console.log("SYS_C:", Array.from(val).join(" "));
+
 kafkaConnector.connectToKafka()
     .then(() => {
         mongodb.connectToMongo(() => {
