@@ -9,7 +9,7 @@ const controllers = require("./controllers/controllers.js");
 
 const kafkaHandler = require("./utils/kafkaConnector.js");
 
-const redisConnector = require("./utils/redisConnector.js");
+const redisConnector = require("./utils/redisHandler.js");
 
 const setFlushingOnRedis = require("./utils/redisRester.js");
 

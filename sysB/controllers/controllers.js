@@ -38,7 +38,7 @@ module.exports = {
     newCallEnded: (nCallData) => {
         const socketIo = socketHandler.getSocket();
         WholeDay.recordCallInFiveMinuteSegment(nCallData);
-        socketIo.emit("newCallEnded");
+        socketIo.emit("newCallEnded", {});
     },
 
     redirect: (req, res, next) => {

@@ -1,4 +1,4 @@
-const redisConnector = require("../utils/redisConnector");
+const redisHandler = require("../utils/redisHandler");
 const NumOfCallers = require("./NumOfCallers");
 
 let _collection;
@@ -8,7 +8,6 @@ module.exports = class NumberOfCallers {
 
     static init() {
         _collection = [];
-        _redisClient = redisConnector.getRedisClient();
     }
 
     static copyFromOutputToCollection(output) {
@@ -21,14 +20,14 @@ module.exports = class NumberOfCallers {
 
     static getNumOfCallsFromRedis() {
         return new Promise((result, reject) => {
-            _redisClient.lrange("numOfCallers", 0, -1, (err, reply) => {
+            redisHandler.getData("numOfCallers").then((collectionRetrieved, err) => {
                 if (err) {
                     reject(err);
                 }
-                else {
-                    NumberOfCallers.copyFromOutputToCollection(reply);
-                    result();
-                }
+                const tempCollection = JSON.parse(JSON.stringify(collectionRetrieved));
+                tempCollection.forEach(elem => _collection.push(new NumOfCallers(elem)));
+                result(_collection);
+
             });
         });
     }

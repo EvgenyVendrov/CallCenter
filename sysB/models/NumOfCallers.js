@@ -1,4 +1,4 @@
-const sendData = require("../utils/redisConnector");
+const redisHandler = require("../utils/redisHandler");
 
 module.exports = class NumOfCallers {
     constructor(inputFromRedis) {
@@ -9,14 +9,8 @@ module.exports = class NumOfCallers {
     }
 
     updateRedis() {
-        sendData.getRedisClient().rpush("numOfCallers", JSON.stringify(this), (err) => {
-            if (err) {
-                throw new Error(err);
-            }
-            else {
-                console.sysb("new data sent to Redis");
-            }
-        });
+        console.sysb("new NumOfCallers data sent to Redis; change time :", this.getTimeOfChange());
+        redisHandler.sendData("numOfCallers", this);
     }
 
     getTimeOfChange() {

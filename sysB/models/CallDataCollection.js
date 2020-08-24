@@ -1,4 +1,4 @@
-const redisConnector = require("../utils/redisConnector");
+const redisHandler = require("../utils/redisHandler");
 const CallData = require("./CallData");
 
 let _collection;
@@ -8,7 +8,6 @@ module.exports = class CallDataCollection {
 
     static init() {
         _collection = [];
-        _redisClient = redisConnector.getRedisClient();
     }
 
     static copyRedisOutputToCollection(output) {
@@ -20,14 +19,13 @@ module.exports = class CallDataCollection {
 
     static getCallsFromRedis() {
         return new Promise((result, reject) => {
-            _redisClient.lrange("callData", 0, -1, (err, reply) => {
+            redisHandler.getData("callData").then((collectionRetrieved, err) => {
                 if (err) {
                     reject(err);
                 }
-                else {
-                    this.copyRedisOutputToCollection(reply);
-                    result();
-                }
+                const tempCollection = JSON.parse(JSON.stringify(collectionRetrieved));
+                tempCollection.forEach(elem => _collection.push(new CallData(elem)));
+                result(_collection);
             });
         });
     }
@@ -39,11 +37,11 @@ module.exports = class CallDataCollection {
 
     static getAVGtimeOfCallLast10Min() {
         try {
-            return _collection
+            return (_collection
                 .filter(callData => this.isLessThan10Minutes(callData))
                 .map(callData => callData["total call time"])
                 .reduce((accumulator, currentValue) => accumulator + currentValue)
-                / _collection.length;
+                / _collection.length);
         }
         catch (e) {
             if (e.message === "Reduce of empty array with no initial value") {
@@ -60,10 +58,6 @@ module.exports = class CallDataCollection {
         hour = parseInt(hour);
         minute = parseInt(minute);
         const [callHour, callMinute] = callDataElem["time recived"].split(":");
-        console.sysb("call hour=>", callHour);
-        console.sysb("call min=>", callMinute);
-        console.sysb("return hour:", hour - callHour);
-        console.sysb("return min:", minute - callMinute);
         return ((hour - callHour === 0) && (minute - callMinute <= 10));
 
     }

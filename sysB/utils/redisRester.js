@@ -1,5 +1,5 @@
 const schedule = require("node-schedule");
-const redisHelper = require("./redisConnector");
+const redisHelper = require("./redisHandler");
 
 module.exports = setFlushingOnRedis = (timeToFlush) => {
     schedule.scheduleJob(timeToFlush, () => {
