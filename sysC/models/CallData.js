@@ -11,11 +11,8 @@ class CallData {
     }
 
     updateMongo() {
-        // console.log(this);
         const date = new Date().toISOString().split("T")[0];
-        const mongoClient = mongo.getDbConnection();
-        mongoClient.collection(date).insertOne(this);
-        console.sysc("data sent to Mongo");
+        mongo.sendData(date, this);
     }
 
 }

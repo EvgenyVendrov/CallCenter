@@ -29,4 +29,10 @@ const getDbConnection = () => {
     throw new Error("mongo client isn't connected yet");
 };
 
-module.exports = { connectToMongo, getDbConnection };
+const sendData = (dateToSend, data) => {
+    const mongoClient = getDbConnection();
+    mongoClient.collection(dateToSend).insertOne(data);
+    console.sysc("data sent to Mongo");
+};
+
+module.exports = { connectToMongo, getDbConnection, sendData };

@@ -26,7 +26,6 @@ kafkaConnector.connectToKafka()
             CallDataCollection.init();
             const server = app.listen(5000);
             console.sysc("connected to server");
-            runBigML();
         });
     })
     .catch(err => { throw err; });
