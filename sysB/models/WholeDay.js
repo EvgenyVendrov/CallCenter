@@ -44,7 +44,7 @@ module.exports = class WholeDay {
             _collection[runningIndex].calcNewAvg(timeTook);
         }
 
-        return _collection.slice(indexToStart, indexToEnd + 1);
+        return JSON.parse(JSON.stringify(_collection.slice(indexToStart, indexToEnd + 1)));
     }
 
     static getDataFromCallDataCollection(callDataCollection) {

@@ -23,19 +23,16 @@ function initSocket() {
     });
 
     //number of calls by lang grpah
-
     socket.on("updCallersByLang", nNumOfCallers => {
 
     });
 
     //number of calls by topic graph
-
     socket.on("updCallersByTopic", nNumOfCallers => {
 
     });
 
     //grpah of active calls pre 5 min segment + waiting time split by 5 min segments
-
     socket.on("upd5minSeg", nNumOfCallers => {
 
     });
