@@ -1,5 +1,4 @@
 
-
 function initSocket() {
     socket = io.connect();
 
@@ -13,6 +12,7 @@ function initSocket() {
 
     socket.on("newCallEnded", () => {
         document.location.reload();
+        
     });
 
     socket.on("10mins", (new10MinsData) => {

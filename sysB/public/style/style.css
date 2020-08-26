@@ -116,6 +116,7 @@ hr{
 }
 /* vertial scroling settings for the tables */
 .my-custom-scrollbar {
+  margin-top: 60px;
 position: relative;
 height: 300px;
 overflow: auto;
@@ -127,6 +128,7 @@ display: block;
 
 .my-agrationTable{
   margin: 6rem auto auto auto;
+  width: auto !important;
 }
 
 /* footerSection styles */
