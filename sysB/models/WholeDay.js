@@ -43,6 +43,8 @@ module.exports = class WholeDay {
             _collection[runningIndex].setCounter(_collection[runningIndex].getCounter() + 1);
             _collection[runningIndex].calcNewAvg(timeTook);
         }
+
+        return _collection.slice(indexToStart, indexToEnd + 1);
     }
 
     static getDataFromCallDataCollection(callDataCollection) {

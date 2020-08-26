@@ -16,7 +16,7 @@ module.exports = {
                 setInterval(() => {
                     const avgWatingTimeOfLast10Mins = _calcNew10MinAvg();
                     const socketIo = socketHandler.getSocket();
-                    socketIo.emit("10mins", avgWatingTimeOfLast10Mins);
+                    socketIo.emit("updAvgOfLast10Mins", avgWatingTimeOfLast10Mins);
                 }, 60 * 1000); // 60 * 1000 milsec
                 console.sysb("updating every min - set");
             })
@@ -31,14 +31,43 @@ module.exports = {
 
     numOfCallersChanged: (newNum) => {
         const socketIo = socketHandler.getSocket();
-        socketIo.emit("updNumOfCallers", newNum);
+        socketIo.emit("updNumOfWaitingCallsRT", newNum);
         console.sysb("socket event of new num of callers emitted to client");
     },
 
     newCallEnded: (nCallData) => {
         const socketIo = socketHandler.getSocket();
-        WholeDay.recordCallInFiveMinuteSegment(nCallData);
-        socketIo.emit("newCallEnded", {});
+
+        socketIo.emit("updCityTopicTable", {
+            city: nCallData["caller city"],
+            topic: nCallData["call topic"]
+        });
+
+        const relCellsOfWholeDay = WholeDay.recordCallInFiveMinuteSegment(nCallData);
+        socketIo.emit("upd5minSegBothTables", "upd5minSegBothGraph", {
+            subArray: relCellsOfWholeDay
+        });
+
+        // socketIo.emit("updNumOfWaitingCallsRT", {
+        //     newNum: parseInt(NummberOfCallersCollection.getUpdatedNumberOfCallers())
+        // });
+
+        const avgWatingTimeOfLast10Mins = _calcNew10MinAvg();
+        socketIo.emit("updAvgOfLast10Mins", {
+            newAvg: avgWatingTimeOfLast10Mins
+        });
+
+        socketIo.emit("updCallersByLang", {
+            lang: CallDataCollection.groupByLang()
+        });
+
+        socketIo.emit("updCallersByTopic", {
+            topic: CallDataCollection.groupByTopic()
+        });
+
+        socketIo.emit("updCallersByTopic", {
+            topic: CallDataCollection.groupByTopic()
+        });
     },
 
     redirect: (req, res, next) => {

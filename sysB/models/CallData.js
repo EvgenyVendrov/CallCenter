@@ -12,7 +12,6 @@ module.exports = class CallData {
     updateRedis() {
         console.sysb("new CallData data sent to Redis; lasted between:", this["time recived"], "->",this["time ended"]);
         redisHandler.sendData("callData", this);
-
     }
 };
 

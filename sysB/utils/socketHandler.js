@@ -7,8 +7,6 @@ module.exports = {
     configureConnections: () => {
         _socketIo.on("connection", (socket) => {
             console.sysb("client connected!");
-            
-            // socket.on("")
         });
     },
     getSocket: () => {
