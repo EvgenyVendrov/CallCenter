@@ -15,8 +15,20 @@ function initSocket() {
     });
 
     //to recive time of call (5 min agr), num of calls and avg time of relevant cells in 5 mins array
-    socket.on("upd5minSeg", nAvgData => {
-        alert(nAvgData[0]);
+    socket.on("upd5minSeg", fiv5MinArr => {
+        for(var i = 0; i < fiv5MinArr.length; i++){
+            var hour = fiv5MinArr[i].hour;
+            var id = hour + "-ActiveCalls";
+            document.getElementById(id).innerHTML++;
+
+        }
+        for(var index = 0; index < fiv5MinArr.length; index++){
+            var houravg = fiv5MinArr[index].hour;
+            var watingT = fiv5MinArr[index].avgWaitingTime;
+            var id2 = hour + "-Wating";
+            document.getElementById(id2).innerHTML = watingT;
+
+        }
 
     });
 
