@@ -25,7 +25,7 @@ function startConv() {
     cTopic.innerHTML =
         "<select class = 'custom-select'><option value='Medical'>Medical</option><option value='drugs'>Drugs</option><option value='food'>Food</option><option value='water'>Water</option><option value='shelter'>Shelter</option><option value='information'>Information</option><option value='evacuation'>Evacuation</option></select>";
     cLanguage.innerHTML =
-        "<select class = 'custom-select'><option value='hebrew'>hebrew</option><option value='english'>english</option><option value='amharic'>amharic</option><option value='russian'>russian</option><option value='arabic>arabic</option><option value='thai'>thai</option></select>";
+        "<select class = 'custom-select'><option value='hebrew'>hebrew</option><option value='english'>english</option><option value='amharic'>amharic</option><option value='russian'>russian</option><option value=arabic>arabic</option></select>";
     cAge.innerHTML = "<input id = 'agecol' type='number' min='0' max='120'/>";
     cGender.innerHTML = "<select class = 'custom-select'><option value='male'>male</option><option value='female'>female</option></select>";
     cEnd.innerHTML = "<button class='btn btn-outline-danger btn-sm' onclick='reportEndCall(this.parentNode.parentNode)'><i class='fas fa-phone-slash'></i> End Call</button>";
