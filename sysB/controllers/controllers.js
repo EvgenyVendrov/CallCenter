@@ -44,7 +44,7 @@ module.exports = {
         });
 
         const relCellsOfWholeDay = WholeDay.recordCallInFiveMinuteSegment(nCallData);
-        socketIo.emit("upd5minSegBothTables", "upd5minSegBothGraph", {
+        socketIo.emit("upd5minSeg", {
             subArray: relCellsOfWholeDay
         });
 
