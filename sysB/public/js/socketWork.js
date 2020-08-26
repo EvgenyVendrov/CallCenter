@@ -4,11 +4,11 @@ function initSocket() {
 
     //to recive city names as written in the table + the topic of the call
     socket.on("updCityTopicTable", nNumOfCallers => {
-        
+
     });
 
     //to recive time of call (5 min agr), num of calls and avg time of relevant cells in 5 mins array 
-    socket.on("upd5minSegBothTables", nAvgData => {
+    socket.on("upd5minSeg", nAvgData => {
 
     });
 
@@ -36,7 +36,7 @@ function initSocket() {
 
     //grpah of active calls pre 5 min segment + waiting time split by 5 min segments
 
-    socket.on("upd5minSegBothGraph", nNumOfCallers => {
+    socket.on("upd5minSeg", nNumOfCallers => {
 
     });
 
