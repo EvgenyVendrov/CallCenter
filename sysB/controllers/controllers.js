@@ -44,9 +44,9 @@ module.exports = {
         });
 
         const relCellsOfWholeDay = WholeDay.recordCallInFiveMinuteSegment(nCallData);
-        socketIo.emit("upd5minSeg", {
-            subArray: relCellsOfWholeDay
-        });
+        console.sysb("~ ~ ~>", "the array:");
+        relCellsOfWholeDay.forEach(e => console.log(e));
+        socketIo.emit("upd5minSeg", relCellsOfWholeDay);
 
         // socketIo.emit("updNumOfWaitingCallsRT", {
         //     newNum: parseInt(NummberOfCallersCollection.getUpdatedNumberOfCallers())
