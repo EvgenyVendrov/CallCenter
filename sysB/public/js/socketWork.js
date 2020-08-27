@@ -12,6 +12,7 @@ function initSocket() {
         document.getElementById("totalCalls").innerHTML++;
 
 
+
     });
 
     //to recive time of call (5 min agr), num of calls and avg time of relevant cells in 5 mins array
@@ -34,7 +35,8 @@ function initSocket() {
 
     //to recive new number of waiting calls in system (for graph)
     socket.on("updNumOfWaitingCallsRT", () => {
-
+        // refresh chart line, notice that in the $ you need to add the chart id like i did below
+        $("#chart").dxChart("refresh");
     });
 
     //AVG call time of calls in the last 10 mins - to update every round min
