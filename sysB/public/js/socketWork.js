@@ -109,6 +109,7 @@ function initSocket() {
     });
 
     socket.on("resetUI", () => {
+        console.log("RESTARTING!");
         document.location.reload();
     });
 

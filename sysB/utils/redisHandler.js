@@ -51,7 +51,16 @@ module.exports = {
                 }
             });
         });
+    },
+    flushAll: (callBack) => {
+        _redisClient.flushall((err, success) => {
+            if (err) {
+                throw new Error(err);
+            }
+            callBack(success);
+        });
     }
+
 };
 
 const _copyRedisOutputToCollection = (output, collection) => {

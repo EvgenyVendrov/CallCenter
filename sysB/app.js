@@ -32,7 +32,9 @@ console.sysb = (...val) => console.log("SYS_B:", Array.from(val).join(" "));
 kafkaHandler.connectToKafka()
     .then(() => {
         redisConnector.connectRedis(() => {
-            setFlushingOnRedis("0 0 * * *");
+            const hour = 0;
+            const min = 0;
+            setFlushingOnRedis(hour, min);
             controllers.init();
             kafkaListenersSetter();
             const server = app.listen(4000);
