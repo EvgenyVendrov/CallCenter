@@ -26,17 +26,17 @@ function startConv() {
     const date = Date.now();
     const dayMonthYearHourMin = getTime();
 
-    cStart.innerHTML = "<div id='" + date + "''>" + dayMonthYearHourMin + "</div>";
+    cStart.innerHTML = "<div id='" + date +"' class='date-of-call'"+ ">" + dayMonthYearHourMin + "</div>";
     cCity.innerHTML =
-        "<select class = 'custom-select'><option value='jerusalem'>Jerusalem</option><option value='naaria'>Naaria</option><option value='haifa'>Haifa</option><option value='telAviv'>Tel Aviv</option><option value='ashdod'>Ashdod</option><option value='Ashkelon'>Ashkelon</option><option value='beerSheva'>Beer Sheva</option></select>";
+        "<select class = 'custom-select'><option value='Jerusalem'>Jerusalem</option><option value='Naaria'>Naaria</option><option value='Haifa'>Haifa</option><option value='Tel Aviv'>Tel Aviv</option><option value='Ashdod'>Ashdod</option><option value='Ashkelon'>Ashkelon</option><option value='Beer Sheva'>Beer Sheva</option></select>";
     cTopic.innerHTML =
-        "<select class = 'custom-select'><option value='Medical'>Medical</option><option value='drugs'>Drugs</option><option value='food'>Food</option><option value='water'>Water</option><option value='shelter'>Shelter</option><option value='information'>Information</option><option value='evacuation'>Evacuation</option></select>";
+        "<select class = 'custom-select'><option value='Medical'>Medical</option><option value='Drugs'>Drugs</option><option value='Food'>Food</option><option value='Water'>Water</option><option value='Shelter'>Shelter</option><option value='Information'>Information</option><option value='Evacuation'>Evacuation</option></select>";
     cLanguage.innerHTML =
-        "<select class = 'custom-select'><option value='hebrew'>hebrew</option><option value='english'>english</option><option value='amharic'>amharic</option><option value='russian'>russian</option><option value=arabic>arabic</option></select>";
+        "<select class = 'custom-select'><option value='Hebrew'>Hebrew</option><option value='English'>English</option><option value='Amharic'>Amharic</option><option value='Russian'>Russian</option><option value='Arabic'>Arabic</option></select>";
     cAge.innerHTML = "<input id = 'agecol' type='number' min='0' max='120'/>";
-    cGender.innerHTML = "<select class = 'custom-select'><option value='male'>male</option><option value='female'>female</option></select>";
-    cEnd.innerHTML = "<button class='btn btn-outline-danger btn-sm endCallbtn' onclick='reportEndCall(this.parentNode.parentNode)'><i class='fas fa-phone-slash'></i> End Call</button>";
-    cCancel.innerHTML = "<button class='btn btn-danger btn-sm cancelCallbtn' onclick='CancelRow(this.parentNode.parentNode)'> Cancel Call</button>";
+    cGender.innerHTML = "<select class = 'custom-select'><option value='Male'>Male</option><option value='Female'>Female</option></select>";
+    cEnd.innerHTML = "<button class='btn btn-outline-danger btn-sm endCallbtn' id='end-btn' onclick='reportEndCall(this.parentNode.parentNode)'><i class='fas fa-phone-slash'></i> End Call</button>";
+    cCancel.innerHTML = "<button class='btn btn-danger btn-sm cancelCallbtn' id='cancle-btn' onclick='CancelRow(this.parentNode.parentNode)'> Cancel Call</button>";
 
 }
 
