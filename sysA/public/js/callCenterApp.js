@@ -2,11 +2,17 @@ $("#answercallbtn").click(startConv);
 
 // answercall button function
 function startConv() {
-    const numOfCalls = parseInt(document.getElementById("total").value);
-    if (numOfCalls === 0) {
+    // const numOfCalls = parseInt(document.getElementById("total").value);
+    let totalCalls = parseInt(document.getElementById("total").value) || 0;
+    if (parseInt(totalCalls) > 0) {
+        document.getElementById("total").value = (--totalCalls) + "";
+        sendMessage(totalCalls);
+    }
+    else {
         popUpModal("There Are No Waiting Calls To Answer!");
         return;
     }
+
     var tr = document.getElementById("openConversations").insertRow();
     var cStart = tr.insertCell(0);
     var cCity = tr.insertCell(1);
@@ -15,7 +21,7 @@ function startConv() {
     var cGender = tr.insertCell(4);
     var cAge = tr.insertCell(5);
     var cEnd = tr.insertCell(6);
-    var cCencell = tr.insertCell(7);
+    var cCancel = tr.insertCell(7);
 
     const date = Date.now();
     const dayMonthYearHourMin = getTime();
@@ -30,7 +36,7 @@ function startConv() {
     cAge.innerHTML = "<input id = 'agecol' type='number' min='0' max='120'/>";
     cGender.innerHTML = "<select class = 'custom-select'><option value='male'>male</option><option value='female'>female</option></select>";
     cEnd.innerHTML = "<button class='btn btn-outline-danger btn-sm endCallbtn' onclick='reportEndCall(this.parentNode.parentNode)'><i class='fas fa-phone-slash'></i> End Call</button>";
-    cCencell.innerHTML ="<button class='btn btn-danger btn-sm cencellCallbtn' onclick='CencellRow(this.parentNode.parentNode)'> Cencell Call</button>";
+    cCancel.innerHTML = "<button class='btn btn-danger btn-sm cancelCallbtn' onclick='CancelRow(this.parentNode.parentNode)'> Cancel Call</button>";
 
 }
 
@@ -38,15 +44,6 @@ function startConv() {
 function reportEndCall(row) {
     const situation = document.getElementById("kind-of-call");
     const timeRecived = row.cells[0].getElementsByTagName("div")[0].innerHTML.split(",")[1];
-
-
-
-    let totalCalls = parseInt(document.getElementById("total").value) || 0;
-    if (parseInt(totalCalls) > 0) {
-        document.getElementById("total").value = (--totalCalls) + "";
-        sendMessage(totalCalls);
-    }
-
 
     const rawCallData = {};
     rawCallData.id = row.cells[0].getElementsByTagName("div")[0].id;
@@ -70,14 +67,10 @@ function reportEndCall(row) {
     deleteRow(row);
 }
 
-function CencellRow(row){
+function CancelRow(row) {
     const i = row.rowIndex;
     document.getElementById("openConversations").deleteRow(i);
     let totalCalls = parseInt(document.getElementById("total").value) || 0;
-    if (parseInt(totalCalls) > 0) {
-        document.getElementById("total").value = (--totalCalls) + "";
-        sendMessage(totalCalls);
-    }
 }
 
 function deleteRow(row) {

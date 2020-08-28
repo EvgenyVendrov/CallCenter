@@ -5,7 +5,7 @@ $(function () {
         series: {
             argumentField: "title",
             valueField: "numOfCallers",
-            name: "number of calls in real time",
+            name: "number of REAL TIME calls in the call center",
             type: "bar",
             color: "#ff7171"
         }
@@ -21,7 +21,7 @@ $(function () {
         series: {
             argumentField: "title",
             valueField: "avg",
-            name: "minuts",
+            name: "seconds",
             type: "bar",
             color: "#00bcd4"
         }
@@ -87,7 +87,7 @@ $(function () {
             ignoreEmptyPoints: true
         },
         series: [
-            { valueField: "avgTime", name: "wating time in minuts" }
+            { valueField: "avgTime", name: "wating time in seconds" }
         ]
     });
 });

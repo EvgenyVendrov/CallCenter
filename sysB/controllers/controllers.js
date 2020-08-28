@@ -48,26 +48,12 @@ module.exports = {
         relCellsOfWholeDay.forEach(e => console.log(e));
         socketIo.emit("upd5minSeg", relCellsOfWholeDay);
 
-        // socketIo.emit("updNumOfWaitingCallsRT", {
-        //     newNum: parseInt(NummberOfCallersCollection.getUpdatedNumberOfCallers())
-        // });
-
         const avgWatingTimeOfLast10Mins = _calcNew10MinAvg();
-        socketIo.emit("updAvgOfLast10Mins", {
-            newAvg: avgWatingTimeOfLast10Mins
-        });
+        socketIo.emit("updAvgOfLast10Mins", avgWatingTimeOfLast10Mins);
 
-        socketIo.emit("updCallersByLang", {
-            lang: CallDataCollection.groupByLang()
-        });
+        socketIo.emit("updCallersByLang", CallDataCollection.groupByLang());
 
-        socketIo.emit("updCallersByTopic", {
-            topic: CallDataCollection.groupByTopic()
-        });
-
-        socketIo.emit("updCallersByTopic", {
-            topic: CallDataCollection.groupByTopic()
-        });
+        socketIo.emit("updCallersByTopic", CallDataCollection.groupByTopic());
     },
 
     redirect: (req, res, next) => {
@@ -88,7 +74,8 @@ const _createConfigObjForUi = () => {
         groupedByTopic: topicCount,
         groupedByType: typeCount,
         groupedByLang: langCount,
-        wholeDaySegment: wholeDaySegment
+        wholeDaySegment: wholeDaySegment,
+        date: _getCurrDateForDashBoard()
     };
 };
 
@@ -96,3 +83,14 @@ const _calcNew10MinAvg = () => {
     return CallDataCollection.getAVGtimeOfCallLast10Min().length === 0
         ? 0 : CallDataCollection.getAVGtimeOfCallLast10Min();
 };
+
+const _getCurrDateForDashBoard = () => {
+    const date = Date.now();
+    const dateTimeFormat = new Intl.DateTimeFormat("en", {
+        year: "numeric",
+        month: "numeric",
+        day: "2-digit"
+    });
+    const [{ value: month }, , { value: day }, , { value: year }, , , ,] = dateTimeFormat.formatToParts(date);
+    return `${day}/${month}/${year}`;
+}
