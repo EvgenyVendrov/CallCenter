@@ -126,6 +126,20 @@
   font-weight: bold !important;
 }
 
+.mytable{
+  width: 1011px !important;
+}
+
+.endCallbtn{
+  font-size: small !important;
+    width: 110px !important;
+}
+
+.cencellCallbtn{
+  font-size: small !important;
+    width: 120px !important;
+}
+
 /* bottom-section */
 
 #bottom-section{
@@ -159,7 +173,7 @@
 #inside-modal{
   background-color: white;
   height: 300px;
-  width: 500px; 
+  width: 500px;
 }
 
 .box {

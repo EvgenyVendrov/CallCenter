@@ -15,6 +15,7 @@ function startConv() {
     var cGender = tr.insertCell(4);
     var cAge = tr.insertCell(5);
     var cEnd = tr.insertCell(6);
+    var cCencell = tr.insertCell(7);
 
     const date = Date.now();
     const dayMonthYearHourMin = getTime();
@@ -28,8 +29,8 @@ function startConv() {
         "<select class = 'custom-select'><option value='hebrew'>hebrew</option><option value='english'>english</option><option value='amharic'>amharic</option><option value='russian'>russian</option><option value=arabic>arabic</option></select>";
     cAge.innerHTML = "<input id = 'agecol' type='number' min='0' max='120'/>";
     cGender.innerHTML = "<select class = 'custom-select'><option value='male'>male</option><option value='female'>female</option></select>";
-    cEnd.innerHTML = "<button class='btn btn-outline-danger btn-sm' onclick='reportEndCall(this.parentNode.parentNode)'><i class='fas fa-phone-slash'></i> End Call</button>";
-
+    cEnd.innerHTML = "<button class='btn btn-outline-danger btn-sm endCallbtn' onclick='reportEndCall(this.parentNode.parentNode)'><i class='fas fa-phone-slash'></i> End Call</button>";
+    cCencell.innerHTML ="<button class='btn btn-danger btn-sm cencellCallbtn' onclick='CencellRow(this.parentNode.parentNode)'> Cencell Call</button>";
 
 }
 
@@ -67,6 +68,16 @@ function reportEndCall(row) {
 
     emitCallData(rawCallData);
     deleteRow(row);
+}
+
+function CencellRow(row){
+    const i = row.rowIndex;
+    document.getElementById("openConversations").deleteRow(i);
+    let totalCalls = parseInt(document.getElementById("total").value) || 0;
+    if (parseInt(totalCalls) > 0) {
+        document.getElementById("total").value = (--totalCalls) + "";
+        sendMessage(totalCalls);
+    }
 }
 
 function deleteRow(row) {
