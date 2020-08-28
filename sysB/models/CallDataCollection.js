@@ -62,46 +62,26 @@ module.exports = class CallDataCollection {
 
     }
 
-    static groupByCity() {
-        return _groupBy("caller city");
-    }
-    static groupByTopic() {
-        return _groupBy("call topic");
-    }
-    static groupByType() {
-        return _groupBy("type of call");
-    }
-    static groupByLang() {
-        return _groupBy("caller language");
-    }
-    // static groupByCity() {
-    //     return CallDataCollection.isEmpty() ? [] : _collection.map(elem => elem["caller city"]).reduce((running, callerCity) =>
-    //         (running[callerCity] ?
-    //             running[callerCity] = running[callerCity] + 1 : running[callerCity] = 1, running), {});
-    // }
-
-    // static groupByTopic() {
-    //     return CallDataCollection.isEmpty() ? [] : _collection.map(elem => elem["call topic"]).reduce((running, callerCity) =>
-    //         (running[callerCity] ?
-    //             running[callerCity] = running[callerCity] + 1 : running[callerCity] = 1, running), {});
-    // }
-
-    // static groupByType() {
-    //     return CallDataCollection.isEmpty() ? [] : _collection.map(elem => elem["type of call"]).reduce((running, callerCity) =>
-    //         (running[callerCity] ?
-    //             running[callerCity] = running[callerCity] + 1 : running[callerCity] = 1, running), {});
-    // }
-
-    // static groupByLang() {
-    //     return CallDataCollection.isEmpty() ? [] : _collection.map(elem => elem["caller language"]).reduce((running, callerCity) =>
-    //         (running[callerCity] ?
-    //             running[callerCity] = running[callerCity] + 1 : running[callerCity] = 1, running), {});
-    // }
-
-
     static getCollection() {
         return _collection;
     }
+
+    static groupByCity() {
+        return _groupBy("caller city");
+    }
+
+    static groupByTopic() {
+        return _groupBy("call topic");
+    }
+
+    static groupByType() {
+        return _groupBy("type of call");
+    }
+
+    static groupByLang() {
+        return _groupBy("caller language");
+    }
+
 };
 
 const _groupBy = (valToGroupBy) => {

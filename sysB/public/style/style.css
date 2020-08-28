@@ -147,3 +147,14 @@ display: block;
 #footer{
   padding-top: 3rem;
 }
+
+#left{
+  margin-left:0; margin-right:auto;
+}
+
+#header-of-board{
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
