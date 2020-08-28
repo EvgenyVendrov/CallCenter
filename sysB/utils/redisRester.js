@@ -1,5 +1,7 @@
 const schedule = require("node-schedule");
 const redisHelper = require("./redisHandler");
+const socketHandler = require("../utils/socketHandler");
+
 
 module.exports = setFlushingOnRedis = (timeToFlush) => {
     schedule.scheduleJob(timeToFlush, () => {
@@ -9,6 +11,7 @@ module.exports = setFlushingOnRedis = (timeToFlush) => {
                 throw new Error(err);
             }
             console.sysb("redis flushed =>", success);
+            socketHandler.getSocket().emit("resetUI");
         });
 
     });

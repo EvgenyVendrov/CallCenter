@@ -108,6 +108,9 @@ function initSocket() {
         $("#fiveMinWatingChart").dxChart("refresh");
     });
 
+    socket.on("resetUI", () => {
+        document.location.reload();
+    });
 
 
 }
