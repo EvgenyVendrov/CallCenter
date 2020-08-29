@@ -83,8 +83,8 @@ function initSocket() {
                 console.log("TRUE!!!");
                 let index2 = 0;
                 while (index2 < relCellsOfWholeDay.length) {
-                    console.log(numOfCalls[index].hour);
-                    numOfCalls[index].callCounter++;
+                    console.log(numOfCalls[index]);
+                    numOfCalls[index].calls++;
                     index2++;
                     index++;
                 }
@@ -98,8 +98,11 @@ function initSocket() {
                 console.log("TRUE!!!2");
                 let index2 = 0;
                 while (index2 < relCellsOfWholeDay.length) {
-                    console.log(timeWatingCalls[index].hour);
-                    timeWatingCalls[index].avgWaitingTime = relCellsOfWholeDay[index2].avgWaitingTime;
+                    console.log(timeWatingCalls[index]);
+                    console.log(relCellsOfWholeDay[index2]);
+                    // console.log("BEFOR AT HOUR: ", timeWatingCalls[index].hour, "we had", timeWatingCalls[index].avgTime, "time");
+                    timeWatingCalls[index].avgTime = relCellsOfWholeDay[index2].avgWaitingTime;
+                    // console.log("AFTER AT HOUR: ", timeWatingCalls[index].hour, "we have", timeWatingCalls[index].avgTime, "time");
                     index2++;
                     index++;
                 }

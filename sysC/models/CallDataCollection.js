@@ -12,14 +12,12 @@ class CallDataCollection {
     }
 
     static async getCallsFromMongo() {
-        // console.log("GOT INNNNNNNN");
         const allCollectionNames = [];
         await CallDataCollection.getAllMongoCollectionNames(allCollectionNames);
-        // console.log(allCollectionNames);
         for (let i = 0; i < allCollectionNames.length; i++) {
             await CallDataCollection.getDataFromMongo(allCollectionNames[i]);
         }
-        // console.log("ZORGO=>", _collection);
+
     }
 
     static getAllMongoCollectionNames(allCollectionNames) {

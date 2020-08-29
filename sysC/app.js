@@ -7,7 +7,6 @@ const kafkaConnector = require("./utils/kafkaConnector");
 const mongodb = require("./utils/mongodb");
 const setListenersOnKafka = require("./models/kafkaHandler");
 const CallDataCollection = require("./models/CallDataCollection");
-const runBigML = require("./utils/bigMLHandler");
 app.set("view engine", "ejs");
 app.set("views", "views");
 

@@ -7,6 +7,7 @@ let _mongoClient;
 
 
 const connectToMongo = (callback) => {
+    // mongodb + srv://Evgeny:<password>@callcenter.ivaiy.mongodb.net/<dbname>?retryWrites=true&w=majority
     const uri = `mongodb+srv://${USERNAME}:${PASSWORD}@callcenter.ivaiy.mongodb.net/callCenter?retryWrites=true&w=majority`;
     mongoClient.connect(uri, { useUnifiedTopology: true })
         .then(connectedClient => {
