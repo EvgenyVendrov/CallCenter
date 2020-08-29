@@ -2,7 +2,6 @@ const redisHandler = require("../utils/redisHandler");
 const CallData = require("./CallData");
 
 let _collection;
-let _redisClient;
 
 module.exports = class CallDataCollection {
 
@@ -83,19 +82,25 @@ module.exports = class CallDataCollection {
     }
 
     static groupByCityTopic() {
+        const allCitys = ["Jerusalem", "Naaria", "Haifa",
+            "Tel Aviv","Ashdod","Ashkelon","Beer Sheva"];
         const toRet = [];
         const listOfCitys = this.groupByCity();
+        for (const city in listOfCitys) {
+            const index = allCitys.indexOf(city);
+            allCitys.splice(index, 1);
+        }
+        for (const city of allCitys) {
+            listOfCitys[city] = 0;
+        }
         let index = 0;
         for (const city in listOfCitys) {
-            // console.log("****>", city);
             const thisCityTopicList = _collection
                 .filter(elem => elem["caller city"] === city)
                 .map(elem => elem["call topic"])
-                .reduce((running, currentValue) =>
-                    (running[currentValue] ?
-                        running[currentValue] = running[currentValue] + 1 : running[currentValue] = 1, running), {});
-
-
+                .reduce((running, currentValue) =>(running[currentValue] ?
+                    running[currentValue] = running[currentValue] + 1 : running[currentValue] = 1, running), {});
+            
             toRet[index] = ({
                 city: city,
                 topics: [{ name: "Medical", numOfCalls: 0 }, { name: "Drugs", numOfCalls: 0 }, { name: "Food", numOfCalls: 0 }, { name: "Water", numOfCalls: 0 }, { name: "Shelter", numOfCalls: 0 }, { name: "Information", numOfCalls: 0 }, { name: "Evacuation", numOfCalls: 0 }]

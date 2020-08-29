@@ -22,7 +22,16 @@ module.exports = {
             })
             .catch((err) => { throw Error(err); });
     },
-
+    restart: () => {
+        CallDataCollection.init();
+        CallDataCollection.getCallsFromRedis()
+            .then(() => {
+                WholeDay.init();
+            })
+            .catch((err) => {
+                throw new Error(err);
+            });
+    },
     getDashBoard: (req, res, next) => {
         const configObjForUi = _createConfigObjForUi();
         configObjForUi.numOfCallers = parseInt(NummberOfCallersCollection.getUpdatedNumberOfCallers());
@@ -44,7 +53,7 @@ module.exports = {
         });
 
         const relCellsOfWholeDay = WholeDay.recordCallInFiveMinuteSegment(nCallData);
-       
+
         socketIo.emit("upd5minSeg", relCellsOfWholeDay);
 
         const avgWatingTimeOfLast10Mins = _calcNew10MinAvg();
@@ -68,7 +77,7 @@ const _createConfigObjForUi = () => {
     const groupByCityTopic = CallDataCollection.groupByCityTopic();
     const langCount = CallDataCollection.groupByLang();
     const wholeDaySegment = WholeDay.getCollection();
-    
+
     return {
         avg10mins: _calcNew10MinAvg(),
         groupedByCity: cityCount,
@@ -95,4 +104,4 @@ const _getCurrDateForDashBoard = () => {
     });
     const [{ value: month }, , { value: day }, , { value: year }, , , ,] = dateTimeFormat.formatToParts(date);
     return `${day}/${month}/${year}`;
-}
+};
