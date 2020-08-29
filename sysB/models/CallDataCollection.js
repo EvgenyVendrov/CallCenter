@@ -87,7 +87,7 @@ module.exports = class CallDataCollection {
         const listOfCitys = this.groupByCity();
         let index = 0;
         for (const city in listOfCitys) {
-            console.log("****>", city);
+            // console.log("****>", city);
             const thisCityTopicList = _collection
                 .filter(elem => elem["caller city"] === city)
                 .map(elem => elem["call topic"])
@@ -95,21 +95,25 @@ module.exports = class CallDataCollection {
                     (running[currentValue] ?
                         running[currentValue] = running[currentValue] + 1 : running[currentValue] = 1, running), {});
 
+
             toRet[index] = ({
                 city: city,
-                topics: []
+                topics: [{ name: "Medical", numOfCalls: 0 }, { name: "Drugs", numOfCalls: 0 }, { name: "Food", numOfCalls: 0 }, { name: "Water", numOfCalls: 0 }, { name: "Shelter", numOfCalls: 0 }, { name: "Information", numOfCalls: 0 }, { name: "Evacuation", numOfCalls: 0 }]
             });
-            for (const topic in thisCityTopicList) {
-                toRet[index].topics.push({
-                    name: topic,
-                    numOfCalls: thisCityTopicList[topic]
-                });
+
+            for (let i = 0; i < toRet[index].topics.length; i++) {
+                // console.log("00000->", toRet[index].topics[i].name);
+                if (thisCityTopicList[toRet[index].topics[i].name]) {
+                    console.log("true!");
+                    console.log("00000->",thisCityTopicList[toRet[index].topics[i].name]);
+                    toRet[index].topics[i].numOfCalls = thisCityTopicList[toRet[index].topics[i].name];
+                }
             }
             index++;
         }
-        // for (const obj of toRet) {
-        //     console.log(obj);
-        // }
+        for (const obj of toRet) {
+            console.log(obj);
+        }
         return toRet;
     }
 
