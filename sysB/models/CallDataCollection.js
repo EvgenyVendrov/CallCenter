@@ -82,6 +82,37 @@ module.exports = class CallDataCollection {
         return _groupBy("caller language");
     }
 
+    static groupByCityTopic() {
+        const toRet = [];
+        const listOfCitys = this.groupByCity();
+        let index = 0;
+        for (const city in listOfCitys) {
+            console.log("****>", city);
+            const thisCityTopicList = _collection
+                .filter(elem => elem["caller city"] === city)
+                .map(elem => elem["call topic"])
+                .reduce((running, currentValue) =>
+                    (running[currentValue] ?
+                        running[currentValue] = running[currentValue] + 1 : running[currentValue] = 1, running), {});
+
+            toRet[index] = ({
+                city: city,
+                topics: []
+            });
+            for (const topic in thisCityTopicList) {
+                toRet[index].topics.push({
+                    name: topic,
+                    numOfCalls: thisCityTopicList[topic]
+                });
+            }
+            index++;
+        }
+        // for (const obj of toRet) {
+        //     console.log(obj);
+        // }
+        return toRet;
+    }
+
 };
 
 const _groupBy = (valToGroupBy) => {

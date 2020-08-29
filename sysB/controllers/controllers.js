@@ -44,8 +44,7 @@ module.exports = {
         });
 
         const relCellsOfWholeDay = WholeDay.recordCallInFiveMinuteSegment(nCallData);
-        console.sysb("~ ~ ~>", "the array:");
-        relCellsOfWholeDay.forEach(e => console.log(e));
+       
         socketIo.emit("upd5minSeg", relCellsOfWholeDay);
 
         const avgWatingTimeOfLast10Mins = _calcNew10MinAvg();
@@ -66,14 +65,17 @@ const _createConfigObjForUi = () => {
     const cityCount = CallDataCollection.groupByCity();
     const topicCount = CallDataCollection.groupByTopic();
     const typeCount = CallDataCollection.groupByType();
+    const groupByCityTopic = CallDataCollection.groupByCityTopic();
     const langCount = CallDataCollection.groupByLang();
     const wholeDaySegment = WholeDay.getCollection();
+    
     return {
         avg10mins: _calcNew10MinAvg(),
         groupedByCity: cityCount,
         groupedByTopic: topicCount,
         groupedByType: typeCount,
         groupedByLang: langCount,
+        groupByCityTopic: groupByCityTopic,
         wholeDaySegment: wholeDaySegment,
         date: _getCurrDateForDashBoard()
     };
