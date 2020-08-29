@@ -102,17 +102,11 @@ module.exports = class CallDataCollection {
             });
 
             for (let i = 0; i < toRet[index].topics.length; i++) {
-                // console.log("00000->", toRet[index].topics[i].name);
                 if (thisCityTopicList[toRet[index].topics[i].name]) {
-                    console.log("true!");
-                    console.log("00000->",thisCityTopicList[toRet[index].topics[i].name]);
                     toRet[index].topics[i].numOfCalls = thisCityTopicList[toRet[index].topics[i].name];
                 }
             }
             index++;
-        }
-        for (const obj of toRet) {
-            console.log(obj);
         }
         return toRet;
     }
