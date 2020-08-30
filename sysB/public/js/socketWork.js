@@ -4,20 +4,21 @@ function initSocket() {
 
     //to recive city names as written in the table + the topic of the call
     socket.on("updCityTopicTable", cityTopic => {
-        console.log("update city- topic table EVENT");
+        // console.log("update city- topic table EVENT");
         console.log(cityTopic);
         var city = cityTopic.city;
         var topic = cityTopic.topic;
         var id = city + topic;
         document.getElementById(id).innerHTML++;
         document.getElementById("total" + topic).innerHTML++;
+        document.getElementById(city + "totalCalls").innerHTML++;
         document.getElementById("totalCalls").innerHTML++;
     });
 
 
     //to recive new number of waiting calls in system (for graph)
     socket.on("updNumOfWaitingCallsRT", (newNum) => {
-        console.log("update RT num of callers EVENT");
+        // console.log("update RT num of callers EVENT");
         const objToPush = {
             title: "wating calls",
             numOfCallers: newNum
@@ -29,7 +30,7 @@ function initSocket() {
 
     //AVG call time of calls in the last 10 mins - to update every round min
     socket.on("updAvgOfLast10Mins", new10MinsData => {
-        console.log("update 10 last mins AVG call length EVENT");
+        // console.log("update 10 last mins AVG call length EVENT");
         const objToPush = {
             title: "wating time",
             avg: new10MinsData
@@ -41,7 +42,7 @@ function initSocket() {
 
     //number of calls by lang grpah
     socket.on("updCallersByLang", groupedByLang => {
-        console.log("update callers by lang EVENT");
+        // console.log("update callers by lang EVENT");
         for (let lang in groupedByLang) {
 
             langSource.push({
@@ -54,7 +55,7 @@ function initSocket() {
 
     //number of calls by topic graph
     socket.on("updCallersByTopic", groupedByTopic => {
-        console.log("update callers by topic EVENT");
+        // console.log("update callers by topic EVENT");
         for (let topic in groupedByTopic) {
             topicSource.push({
                 topic: topic,
@@ -66,7 +67,7 @@ function initSocket() {
 
     //grpah of active calls pre 5 min segment + waiting time split by 5 min segments
     socket.on("upd5minSeg", relCellsOfWholeDay => {
-        console.log("update5 min seg EVENT");
+        // console.log("update5 min seg EVENT");
         for (let index = 0; index < numOfCalls.length; index++) {
             if (numOfCalls[index].hour === relCellsOfWholeDay[0].hour) {
                 console.log("TRUE!!!");
@@ -84,7 +85,7 @@ function initSocket() {
 
         for (let index = 0; index < timeWatingCalls.length; index++) {
             if (timeWatingCalls[index].hour === relCellsOfWholeDay[0].hour) {
-                console.log("TRUE!!!2");
+                // console.log("TRUE!!!2");
                 let index2 = 0;
                 while (index2 < relCellsOfWholeDay.length) {
                     // console.log(timeWatingCalls[index]);

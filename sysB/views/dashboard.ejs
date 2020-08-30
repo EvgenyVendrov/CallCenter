@@ -192,14 +192,14 @@
               <% topicsTotal[counter] += value; %>
               <% counter++; %>
               <% } %>
-              <td id='<%city.city%> +totalCalls'><%=sumOfCalls%></td>
+              <td id='<%=city.city%>totalCalls'><%=sumOfCalls%></td>
           </tr>
           <% } %>
           <% let sumOfTotal = 0; %>
           <tr>
             <th scope="row">Total</th>
             <% for(let i = 0; i < 7; i++){ %>
-              <td id="total" + '<%=topicsNames[i]%>'><%=topicsTotal[i]%></td>
+              <td id="total<%=topicsNames[i]%>"><%=topicsTotal[i]%></td>
               <% sumOfTotal += topicsTotal[i]; %>
             <%}%>
             <td id="totalCalls"><%=sumOfTotal%></td>
