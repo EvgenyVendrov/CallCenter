@@ -16,4 +16,5 @@ big data project - represents a COVID19 type of "call center" which is written u
 
 3) sysC - Node.js EXPRESS server which recives the data from KAFKA and stores it in Mongodb-Atlas Cloud DB - in a collection by the date of the call
 
+*MongoDB atlas data saved
 ![sysC mongoDB](https://user-images.githubusercontent.com/44900773/92363295-f1a70800-f0f9-11ea-8a8c-e8c6b91cdbd2.png)
