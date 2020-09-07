@@ -12,6 +12,8 @@ big data project - represents a COVID19 type of "call center" which is written u
 
 2) sysB - Node.js EXPRESS server which recives data from KAFKA (sysA), stores it in REDIS which runs in a Docker container, and serves a NRT 24-hour dashboard (using DevExpress graphing library - DevExtreme Charts), updated in RT using SocketIO.
 
+![image](https://user-images.githubusercontent.com/44900773/92366241-8d864300-f0fd-11ea-9be5-8fafc5a3a45b.png)
+
 ![whole sys](https://user-images.githubusercontent.com/44900773/92365922-2a94ac00-f0fd-11ea-8f07-936bc53f9e32.png)
 
 ![ללא שם](https://user-images.githubusercontent.com/44900773/92366089-5dd73b00-f0fd-11ea-8018-736b992841d7.png)
